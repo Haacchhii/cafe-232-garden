@@ -1,60 +1,17 @@
-import { Coffee, UtensilsCrossed } from "lucide-react";
-
-const drinks = [
-  {
-    name: "Jeju Oat Matcha Latte",
-    description: "Premium matcha with creamy oat milk",
-    price: 180,
-  },
-  {
-    name: "Kori Kohi",
-    description: "Japanese-style iced coffee",
-    price: 180,
-  },
-  {
-    name: "SeaSalt Latte",
-    description: "Espresso topped with sea salt cream",
-    price: 180,
-  },
-];
-
-const food = [
-  {
-    name: "Nachos Overload",
-    description: "Loaded nachos with all the toppings",
-    price: 180,
-  },
-  {
-    name: "Chicken Sandwich",
-    description: "Tender chicken with fresh greens",
-    price: 180,
-  },
-  {
-    name: "Tuna Sandwich",
-    description: "Classic tuna salad on toasted bread",
-    price: 180,
-  },
-];
-
-const MenuItem = ({ name, description, price }: { name: string; description: string; price: number }) => (
-  <div className="group flex items-start justify-between p-4 rounded-xl hover:bg-muted/50 transition-colors duration-300">
-    <div className="flex-1">
-      <h4 className="font-display text-lg font-semibold text-primary group-hover:text-warm-orange transition-colors">
-        {name}
-      </h4>
-      <p className="text-muted-foreground text-sm mt-1">{description}</p>
-    </div>
-    <span className="font-display text-xl font-bold text-sage ml-4">
-      ₱{price}
-    </span>
-  </div>
-);
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import DrinksImg from "@/assets/Drinks.jpg";
+import Drinks2Img from "@/assets/Drinks2.jpg";
+import AppetizersImg from "@/assets/Appetizers.jpg";
+import DessertImg from "@/assets/Dessert.jpg";
 
 const Menu = () => {
+  const [activeTab, setActiveTab] = useState("drinks");
+
   return (
     <section id="menu" className="py-20 md:py-28 bg-background">
       <div className="container px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-sage font-medium tracking-widest uppercase text-sm">
             Our Menu
           </span>
@@ -66,34 +23,117 @@ const Menu = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-          {/* Drinks */}
-          <div className="bg-card rounded-3xl p-6 md:p-8 shadow-sm border border-border">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-sage-light rounded-xl flex items-center justify-center">
-                <Coffee className="w-6 h-6 text-sage" />
-              </div>
-              <h3 className="font-display text-2xl font-bold text-primary">Drinks</h3>
-            </div>
-            <div className="space-y-2">
-              {drinks.map((item) => (
-                <MenuItem key={item.name} {...item} />
-              ))}
-            </div>
-          </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-6xl mx-auto">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8 h-auto gap-2">
+            <TabsTrigger value="drinks" className="text-base py-3">Signature Drinks & Refreshments</TabsTrigger>
+            <TabsTrigger value="signatures" className="text-base py-3">Coffee & Non-Coffee Drinks</TabsTrigger>
+            <TabsTrigger value="food" className="text-base py-3">Pasta & Sandwiches</TabsTrigger>
+            <TabsTrigger value="desserts" className="text-base py-3">Cookies & Cakes</TabsTrigger>
+          </TabsList>
 
-          {/* Food */}
-          <div className="bg-card rounded-3xl p-6 md:p-8 shadow-sm border border-border">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-accent/30 rounded-xl flex items-center justify-center">
-                <UtensilsCrossed className="w-6 h-6 text-warm-orange" />
+          {/* Drinks Tab */}
+          <TabsContent value="drinks" className="mt-0">
+            <div className="bg-card rounded-3xl overflow-hidden shadow-lg border border-border">
+              <div className="relative">
+                <img 
+                  src={DrinksImg} 
+                  alt="Coffee and Non-Coffee Menu" 
+                  className="w-full h-auto object-contain"
+                />
               </div>
-              <h3 className="font-display text-2xl font-bold text-primary">Food</h3>
             </div>
-            <div className="space-y-2">
-              {food.map((item) => (
-                <MenuItem key={item.name} {...item} />
-              ))}
+            <div className="mt-6 text-center">
+              <p className="text-muted-foreground text-sm">
+                Click or tap on the image to view full size
+              </p>
+            </div>
+          </TabsContent>
+
+          {/* Signatures & Refreshments Tab */}
+          <TabsContent value="signatures" className="mt-0">
+            <div className="bg-card rounded-3xl overflow-hidden shadow-lg border border-border">
+              <div className="relative">
+                <img 
+                  src={Drinks2Img} 
+                  alt="Signature Drinks and Refreshments Menu" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-muted-foreground text-sm">
+                Click or tap on the image to view full size
+              </p>
+            </div>
+          </TabsContent>
+
+          {/* Food Tab */}
+          <TabsContent value="food" className="mt-0">
+            <div className="bg-card rounded-3xl overflow-hidden shadow-lg border border-border">
+              <div className="relative">
+                <img 
+                  src={AppetizersImg} 
+                  alt="Pasta and Sandwich Menu" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-muted-foreground text-sm">
+                Click or tap on the image to view full size
+              </p>
+            </div>
+          </TabsContent>
+
+          {/* Desserts Tab */}
+          <TabsContent value="desserts" className="mt-0">
+            <div className="bg-card rounded-3xl overflow-hidden shadow-lg border border-border">
+              <div className="relative">
+                <img 
+                  src={DessertImg} 
+                  alt="Cookies, Cakes, and Breakfast Menu" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-muted-foreground text-sm">
+                Click or tap on the image to view full size
+              </p>
+            </div>
+          </TabsContent>
+        </Tabs>
+
+        {/* Additional Info */}
+        <div className="max-w-6xl mx-auto mt-12">
+          <div className="bg-sage-light/30 rounded-2xl p-6 md:p-8 text-center">
+            <h3 className="font-display text-2xl font-bold text-primary mb-3">
+              Special Breakfast Promo
+            </h3>
+            <p className="text-primary/80 text-lg">
+              Enjoy a <span className="font-bold text-sage">FREE Cafe Americano</span> (Iced or Hot) 
+              with every All-Day Breakfast order from <span className="font-bold">8 AM - 1 PM</span>!
+            </p>
+          </div>
+        </div>
+
+        {/* Add-Ons Section */}
+        <div className="max-w-6xl mx-auto mt-8">
+          <div className="bg-card rounded-3xl p-6 md:p-8 shadow-sm border border-border">
+            <h3 className="font-display text-2xl font-bold text-primary mb-4 text-center">Add-Ons</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+              <div className="flex items-center justify-between p-4 rounded-lg bg-muted/30">
+                <span className="font-medium text-primary">Oat Milk</span>
+                <span className="font-display text-lg font-bold text-sage">₱30</span>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-lg bg-muted/30">
+                <span className="font-medium text-primary">Extra Shot</span>
+                <span className="font-display text-lg font-bold text-sage">₱30</span>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-lg bg-muted/30">
+                <span className="font-medium text-primary">Whipped Cream</span>
+                <span className="font-display text-lg font-bold text-sage">₱30</span>
+              </div>
             </div>
           </div>
         </div>
